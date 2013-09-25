@@ -98,7 +98,7 @@ function translateAccent(character)
 			return String.fromCharCode(parseInt(dictionary[i+1], 16));
 		}
 	}
-    return false;
+    return character;
 }
 
 
@@ -132,9 +132,14 @@ function alterTextNodes(nodeIterator, mode){
 		break;
 
 		case 'accenter':
-			//TODO: Accenter logic
 			while(currNode = nodeIterator.nextNode()){
-			  currNode.nodeValue = '[' + currNode.nodeValue + ']';
+				var nodeLength = currNode.nodeValue.length,
+					translated = "";
+
+				while(nodeLength--){
+					translated = translateAccent(currNode.nodeValue[nodeLength]) + translated;
+				}
+			  currNode.nodeValue = translated;
 			}
 		break;
 
@@ -148,5 +153,5 @@ function alterTextNodes(nodeIterator, mode){
 	}
 }
 
-alterTextNodes(getIterator(), 'brackets');
+alterTextNodes(getIterator(), 'accenter');
 
