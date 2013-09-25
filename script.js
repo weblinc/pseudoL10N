@@ -15,13 +15,31 @@ function getIterator(){
 	}
 	
 	return nodeIterator;
-};
+}
 
-function alterTextNodes(nodeIterator){
-	while(currNode = nodeIterator.nextNode()){
-	  currNode.nodeValue = '[' + currNode.nodeValue + ']';
+function alterTextNodes(nodeIterator, mode){
+
+	switch(mode)
+	{
+		case 'brackets':
+			while(currNode = nodeIterator.nextNode()){
+			  currNode.nodeValue = '[' + currNode.nodeValue + ']';
+			}
+		break;
+
+		case 'accenter':
+			//TODO: Accenter logic
+		break;
+
+		case 'expander':
+			//TODO: Expander logic
+		break;
+
+		case 'fakebidi':
+			//TODO: Fake bidrectional logic
+		break;
 	}
 }
 
-alterTextNodes(getIterator());
+alterTextNodes(getIterator(), 'brackets');
 
