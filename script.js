@@ -148,7 +148,9 @@ function alterTextNodes(nodeIterator, mode){
 		break;
 
 		case 'fakebidi':
-			//TODO: Fake bidrectional logic
+			while(currNode = nodeIterator.nextNode()){
+                    currNode.nodeValue = currNode.nodeValue.split('').reverse().join('');
+               }
 		break;
 	}
 }
