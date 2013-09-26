@@ -195,17 +195,23 @@ function alterTextNodes(nodeIterator, mode, expandsize, expandmode){
 	}
 }
 
-function plocalize(actions, expandsize, expandmode){
-
-     if(actions === "all")
-          var actionList = ["accenter", "expander", "fakebidi", "brackets"];
-     else
-          var actionList = actions.split(',');
-
-
+function plocalize(options){
+     var actionList = new Array(); 
+     if(options.all == true)
+          actionList = ["accenter", "lmod", "fakebidi", "brackets"];
+     else{
+          if(options.accenter == true)
+               actionList.push("accenter");
+          if(options.expander == true)
+               actionList.push("lmod");
+          if(options.fakebidi == true)
+               actionList.push("fakebidi");
+          if(options.brackets == true)
+               actionList.push("brackets");
+     }
      for(var i = 0; i < actionList.length; i++){
-          if(actionList[i].trim() === "expander")
-               alterTextNodes(getIterator(), actionList[i].trim(), expandsize, expandmode);
+          if(actionList[i].trim() === "lmod")
+               alterTextNodes(getIterator(), "lmod", options.modpercent, options.modmode);
           else
                alterTextNodes(getIterator(), actionList[i].trim());
      }
