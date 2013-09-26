@@ -1,5 +1,5 @@
-function translateAccent(character)
-{
+"strict mode";
+function translateAccent(character){
     var dictionary = [
      ' ', '2003' ,
      '!', '00a1' ,
@@ -154,7 +154,7 @@ function alterTextNodes(nodeIterator, mode, expandsize, expandmode){
                               while(currNode = nodeIterator.nextNode()){
                                    var preString = "";
                                    for(var i = 0; i < expandsize; i++){
-                                        preString += String.fromCharCode(getRandomInt(33,300));
+                                        preString += String.fromCharCode(61);
                                    }
                                    currNode.nodeValue = preString + currNode.nodeValue;
                               }
@@ -164,7 +164,7 @@ function alterTextNodes(nodeIterator, mode, expandsize, expandmode){
                               while(currNode = nodeIterator.nextNode()){
                                    var postString = "";
                                    for(var i = 0; i < expandsize; i++){
-                                        postString += String.fromCharCode(getRandomInt(33,300));
+                                        postString += String.fromCharCode(61);
                                    }
                                    currNode.nodeValue += postString;
                               }
@@ -176,10 +176,10 @@ function alterTextNodes(nodeIterator, mode, expandsize, expandmode){
                                    var preString = "";
                                    var postString = "";
                                    for(var i = 0; i < expandsize; i++){
-                                        preString += String.fromCharCode(getRandomInt(33,300));
+                                        preString += String.fromCharCode(61);
                                    }
                                    for(var i = 0; i < expandsize; i++){
-                                        postString += String.fromCharCode(getRandomInt(33,300));
+                                        postString += String.fromCharCode(61);
                                    }
                                    currNode.nodeValue = preString + currNode.nodeValue + postString;
                               }
@@ -190,17 +190,15 @@ function alterTextNodes(nodeIterator, mode, expandsize, expandmode){
 		break;
 
 		case 'fakebidi':
-			while(currNode = nodeIterator.nextNode()){
-                    currNode.nodeValue = currNode.nodeValue.split('').reverse().join('');
-               }
-		break;
+			document.getElementsByTagName('body')[0].setAttribute('DIR', 'RTL');
+          break;
 	}
 }
 
 function plocalize(actions, expandsize, expandmode){
 
      if(actions === "all")
-          var actionList = ["brackets", "accenter", "expander", "fakebidi"];
+          var actionList = ["accenter", "expander", "fakebidi", "brackets"];
      else
           var actionList = actions.split(',');
 
