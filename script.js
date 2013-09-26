@@ -100,7 +100,9 @@ function translateAccent(character)
 	}
     return character;
 }
-
+function getRandomInt(min, max){
+     return Math.floor(Math.random() * (max-min+1) + min);
+}
 
 
 function getIterator(){
@@ -121,7 +123,7 @@ function getIterator(){
 	return nodeIterator;
 }
 
-function alterTextNodes(nodeIterator, mode){
+function alterTextNodes(nodeIterator, mode, expandsize, expandmode){
 
 	switch(mode)
 	{
@@ -144,7 +146,47 @@ function alterTextNodes(nodeIterator, mode){
 		break;
 
 		case 'expander':
-			//TODO: Expander logic
+               expandsize = (expandsize.length != 0 && !isNaN(parseFloat(expandsize)) && isFinite(expandsize) && expandsize != '0')?expandsize:false;
+               if(expandsize !== false){
+                    switch(expandmode)
+                    {
+                         case "prefix":
+                              while(currNode = nodeIterator.nextNode()){
+                                   var preString = "";
+                                   for(var i = 0; i < expandsize; i++){
+                                        preString += String.fromCharCode(getRandomInt(33,300));
+                                   }
+                                   currNode.nodeValue = preString + currNode.nodeValue;
+                              }
+                         break;
+
+                         case "postfix":
+                              while(currNode = nodeIterator.nextNode()){
+                                   var postString = "";
+                                   for(var i = 0; i < expandsize; i++){
+                                        postString += String.fromCharCode(getRandomInt(33,300));
+                                   }
+                                   currNode.nodeValue += postString;
+                              }
+                         break;
+
+                         case "both":
+                         default:
+                              while(currNode = nodeIterator.nextNode()){
+                                   var preString = "";
+                                   var postString = "";
+                                   for(var i = 0; i < expandsize; i++){
+                                        preString += String.fromCharCode(getRandomInt(33,300));
+                                   }
+                                   for(var i = 0; i < expandsize; i++){
+                                        postString += String.fromCharCode(getRandomInt(33,300));
+                                   }
+                                   currNode.nodeValue = preString + currNode.nodeValue + postString;
+                              }
+                         break;
+                    }
+               }
+               
 		break;
 
 		case 'fakebidi':
@@ -155,5 +197,5 @@ function alterTextNodes(nodeIterator, mode){
 	}
 }
 
-alterTextNodes(getIterator(), 'accenter');
+alterTextNodes(getIterator(), 'expander', 4, "prefix");
 
