@@ -123,7 +123,7 @@ function getIterator(){
 	return nodeIterator;
 }
 
-function alterTextNodes(nodeIterator, mode, expandsize, expandmode){
+function alterTextNodes(nodeIterator, mode, lmodpercent, lmodmode, lmodfix){
 
 	switch(mode)
 	{
@@ -145,43 +145,64 @@ function alterTextNodes(nodeIterator, mode, expandsize, expandmode){
 			}
 		break;
 
-		case 'expander':
-               expandsize = (expandsize.length != 0 && !isNaN(parseFloat(expandsize)) && isFinite(expandsize) && expandsize != '0')?expandsize:false;
-               if(expandsize !== false){
-                    switch(expandmode)
+		case 'lmod':
+               lmodpercent = (lmodpercent.length != 0 && !isNaN(parseFloat(lmodpercent)) && isFinite(lmodpercent) && lmodpercent != '0')?lmodpercent:false;
+               if(lmodpercent !== false){
+                    switch(lmodfix)
                     {
                          case "prefix":
                               while(currNode = nodeIterator.nextNode()){
-                                   var preString = "";
-                                   for(var i = 0; i < expandsize; i++){
-                                        preString += String.fromCharCode(61);
+                                   var charChange = Math.floor(currNode.nodeValue.length * (lmodpercent/100));
+                                   if(lmodmode == "contract"){
+                                        currNode.nodeValue = currNode.nodeValue.substring(charChange - 1);
                                    }
-                                   currNode.nodeValue = preString + currNode.nodeValue;
+                                   else{
+                                        //expand by default
+                                        var preString = "";
+                                        for(var i = 0; i < charChange; i++){
+                                             preString += String.fromCharCode(61);
+                                        }
+                                        currNode.nodeValue = preString + currNode.nodeValue;
+                                   }
                               }
                          break;
 
                          case "postfix":
                               while(currNode = nodeIterator.nextNode()){
-                                   var postString = "";
-                                   for(var i = 0; i < expandsize; i++){
-                                        postString += String.fromCharCode(61);
+                                   var charChange = Math.floor(currNode.nodeValue.length * (lmodpercent/100));
+                                   if(lmodmode == "contract"){
+                                        currNode.nodeValue = currNode.nodeValue.substring(0, currNode.nodeValue.length - charChange);
                                    }
-                                   currNode.nodeValue += postString;
+                                   else{
+                                        //expand by default
+                                        var postString = "";
+                                        for(var i = 0; i < charChange; i++){
+                                             postString += String.fromCharCode(61);
+                                        }
+                                        currNode.nodeValue += postString;
+                                   }
                               }
                          break;
 
                          case "both":
                          default:
                               while(currNode = nodeIterator.nextNode()){
-                                   var preString = "";
-                                   var postString = "";
-                                   for(var i = 0; i < expandsize; i++){
-                                        preString += String.fromCharCode(61);
+                                   var charChange = Math.floor((currNode.nodeValue.length * (lmodpercent/100))/2);
+                                   if(lmodmode == "contract"){
+                                        currNode.nodeValue = currNode.nodeValue.substring(charChange, currNode.nodeValue.length - charChange);
                                    }
-                                   for(var i = 0; i < expandsize; i++){
-                                        postString += String.fromCharCode(61);
+                                   else{
+                                        //expand by default
+                                        var preString = "";
+                                        var postString = "";
+                                        for(var i = 0; i < charChange; i++){
+                                             preString += String.fromCharCode(61);
+                                        }
+                                        for(var i = 0; i < charChange; i++){
+                                             postString += String.fromCharCode(61);
+                                        }
+                                        currNode.nodeValue = preString + currNode.nodeValue + postString;
                                    }
-                                   currNode.nodeValue = preString + currNode.nodeValue + postString;
                               }
                          break;
                     }
@@ -202,7 +223,7 @@ function plocalize(options){
      else{
           if(options.accenter == true)
                actionList.push("accenter");
-          if(options.expander == true)
+          if(options.lmod == true)
                actionList.push("lmod");
           if(options.fakebidi == true)
                actionList.push("fakebidi");
@@ -211,7 +232,7 @@ function plocalize(options){
      }
      for(var i = 0; i < actionList.length; i++){
           if(actionList[i].trim() === "lmod")
-               alterTextNodes(getIterator(), "lmod", options.modpercent, options.modmode);
+               alterTextNodes(getIterator(), "lmod", options.lmodpercent, options.lmodmode, options.lmodfix);
           else
                alterTextNodes(getIterator(), actionList[i].trim());
      }
