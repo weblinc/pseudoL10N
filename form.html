@@ -1,0 +1,40 @@
+<html>
+<head>
+    <link href='http://fonts.googleapis.com/css?family=Istok+Web:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+    <div class="main-title">Pseudolocalization</div>
+    <form>
+        <span class="radio-set">Localization Type</span>
+        <div class="radio-set"><input type="radio" name="mode" value="all" checked="checked" /> All</div>
+        <div class="radio-set"><input type="radio" name="mode" value="accenter" /> Accenter</div>
+        <div class="radio-set"><input type="radio" name="mode" value="lmod" /> Length Modifier</div>
+        <div class="radio-set"><input type="radio" name="mode" value="fakebidi" /> Fake Bidirectional</div>
+        <div class="radio-set"><input type="radio" name="mode" value="brackets" /> Brackets</div>
+
+        <div class="lmod-options">
+            <span>Length Modifier Options</span>
+            <div>
+                Mode: 
+                <select name="lmodmode">
+                    <option value="expand">Expand</option>
+                    <option value="contract">Contract</option>
+                </select>
+            </div>
+            <div>Percent Modifier: <input type="text" name="lmodpercent" size="3" maxlength="3" value="20" />%</div>
+            <div>
+                Fix Position: 
+                <select name="lmodfix">
+                    <option value="both">Both</option>
+                    <option value="prefix">Prefix</option>
+                    <option value="postfix">Postfix</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="submit">Localize</button>
+    </form>
+</body>
+</html>
