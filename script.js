@@ -197,5 +197,21 @@ function alterTextNodes(nodeIterator, mode, expandsize, expandmode){
 	}
 }
 
-alterTextNodes(getIterator(), 'expander', 4, "prefix");
+function plocalize(actions, expandsize, expandmode){
+
+     if(actions === "all")
+          var actionList = ["brackets", "accenter", "expander", "fakebidi"];
+     else
+          var actionList = actions.split(',');
+
+
+     for(var i = 0; i < actionList.length; i++){
+          if(actionList[i].trim() === "expander")
+               alterTextNodes(getIterator(), actionList[i].trim(), expandsize, expandmode);
+          else
+               alterTextNodes(getIterator(), actionList[i].trim());
+     }
+          
+}
+
 
