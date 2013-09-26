@@ -241,9 +241,49 @@ function plocalize(options){
 
 function getTranslatedWindow(options){
      var base_url = "http://translate.google.com/translate?js=n&sl=auto";
-     var requested_page = encodeURIComponent(window.location.href);
+     var requested_page = encodeURIComponent(options.windowUrl);
      var full_url = base_url + "&tl=" + options.destLang + "&u=" + requested_page;
-     window.open(full_url, "translated", "height=860,width=1200");
+     window.open(full_url, "Translated Content", "height=860,width=1200");
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+     var windowUrl;
+     chrome.tabs.query({
+               'active': true,
+               'windowId': chrome.windows.WINDOW_ID_CURRENT
+          }, function (tabs) {
+               windowUrl = tabs[0].url;               
+          });
+    document.getElementById('translate').addEventListener("click", function () {
+          var transSelect = document.getElementById('lang');
+          getTranslatedWindow({'destLang': transSelect.options[transSelect.selectedIndex].value, 'windowUrl': windowUrl});
+          return false; 
+    });
 
+
+});
+
+window.onload = function(){
+
+     document.getElementById('localize').onclick = function(){
+          var options, mode; 
+          var elements = document.getElementsByName('mode');     
+          for(var i=0; i < elements.length; ++i){
+               if(elements[i].checked){
+                    mode = elements[i].value;
+                    break;
+               }
+          }
+          if(mode == "all")
+               options.all = true;
+          if(mode == "all" || mode == "lmod"){
+               options.lmodpercent = document.getElementsByName('lmodpercent').value;
+               options.lmodmode = document.getElementsByName('lmodmode').value;
+               options.lmodfix = document.getElementsByName('lmodfix').value;     
+          }
+          
+          plocalize(options);
+
+          return false;
+     }
+}
