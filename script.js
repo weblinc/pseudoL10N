@@ -239,4 +239,11 @@ function plocalize(options){
           
 }
 
+function getTranslatedWindow(options){
+     var base_url = "http://translate.google.com/translate?js=n&sl=auto";
+     var requested_page = encodeURIComponent(options.url);
+     var full_url = base_url + "&tl=" + options.destLang + "&u=" + requested_page;
+     window.open(full_url, "translated", "height=860,width=1200");
+}
+
 
