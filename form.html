@@ -105,7 +105,9 @@
                     <option value="contract">Contract</option>
                 </select>
             </div>
-            <div>Percent Modifier: <input type="text" name="lmodpercent" id="lmodpercent" size="3" maxlength="3" value="20" />%</div>
+            <div>Percent Modifier: <input type="range" name="lmodpercent" id="lmodpercent" min="1" max="100" value="20" />
+                <span class="lmodpercent-display" id="lmodpercent-display">20%</span>
+            </div>
             <div>
                 Fix Position: 
                 <select name="lmodfix" id="lmodfix">

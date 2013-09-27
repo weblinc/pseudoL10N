@@ -20,6 +20,9 @@ span.radio-set{
 .lmod-options > div{
     margin: 8px 0;
 }
+.lmodpercent-display{
+    text-align: center;
+}
 button.submit{
     margin-top: 15px;
     padding: 5px 14px;
