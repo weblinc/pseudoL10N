@@ -1,0 +1,35 @@
+body {
+    font-family: 'Istok Web', sans-serif;
+    color: #494848;
+    background: #f0f0f0;
+}
+
+.main-title{
+    font-weight:bold;
+    font-size: 22px;
+}
+span.radio-set{
+    font-weight: bold;
+}
+.lmod-options{
+    margin-top: 10px;
+}
+.lmod-options span{
+    font-weight: bold;
+}
+.lmod-options > div{
+    margin: 8px 0;
+}
+.lmodpercent-display{
+    text-align: center;
+}
+button.submit{
+    margin-top: 15px;
+    padding: 5px 14px;
+    font-size: 15px;
+    color: #fff;
+    text-transform: uppercase;
+    background: #ababab;
+    border: 1px solid #86898B;
+    border-radius: 2px;
+}
