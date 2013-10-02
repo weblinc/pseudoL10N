@@ -1,4 +1,6 @@
 "strict mode";
+var originalNodes = new originalNodeValues();
+
 function translateAccent(character){
     var dictionary = [
      ' ', '2003' ,
@@ -104,6 +106,30 @@ function getRandomInt(min, max){
      return Math.floor(Math.random() * (max-min+1) + min);
 }
 
+function originalNodeValues(){
+     this.nodes = setNodes();
+}
+function setNodes(){     
+     if(originalNodes == undefined){
+          var allNodes = [],
+              nodeIterator = getIterator();
+          while(currNode = nodeIterator.nextNode()){
+               allNodes.push(currNode.nodeValue);
+          }
+          return allNodes;
+     }
+}
+
+function resetPageNodes(){
+     var i = 0,
+          nodeIterator = getIterator(),
+          originalValues = originalNodes.nodes;
+
+     while(currNode = nodeIterator.nextNode()){
+          currNode.nodeValue = originalValues[i];
+          i++
+     }
+}
 
 function getIterator(){
 	var scope = document.body,

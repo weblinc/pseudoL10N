@@ -57,6 +57,15 @@ document.addEventListener('DOMContentLoaded', function () {
      document.getElementById("lmodpercent").addEventListener("change", function(){
           document.getElementById('lmodpercent-display').innerHTML = document.getElementById('lmodpercent').value + "%";
      });
+
+     document.getElementById("reset").addEventListener("click", function(){
+          chrome.tabs.getSelected(null, function(tab) {
+            chrome.tabs.executeScript(tab.id, {
+                 code: "resetPageNodes();"
+               }, function() { console.log('done'); });
+          });
+          return false;
+     });
 });
 
 
