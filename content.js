@@ -129,6 +129,7 @@ function resetPageNodes(){
           currNode.nodeValue = originalValues[i];
           i++
      }
+     document.getElementsByTagName('body')[0].setAttribute('DIR', 'LTR');
 }
 
 function getIterator(){
