@@ -19,30 +19,26 @@ form{
     padding: 8px;
 }
 
-.main-title{
+.wl-title{
     font-weight:bold;
     font-size: 22px;
 }
-span.radio-set{
-    font-weight: bold;
-}
-label.radio-set{
+
+.wl-check-set{
     display: block;
 }
-.lmod-options{
+.wl-lmod-options{
     padding-left: 20px;
     font-size: 13px;
 }
-.lmod-options span{
+.wl-lmod-options .lmodpercent-display{
     font-weight: bold;
-}
-.lmod-options > div{
-    margin: 8px 0;
-}
-.lmodpercent-display{
     text-align: center;
 }
-button.submit{
+.wl-lmod-options > div{
+    margin: 8px 0;
+}
+.wl-button{
     margin-top: 15px;
     padding: 5px 14px;
     font-size: 15px;

@@ -7,7 +7,7 @@
 <body>
     <div class="header"></div>
     <div class="content-wrapper">
-        <div class="main-title">Translate Page</div>
+        <div class="wl-title">Translate Page</div>
         <form>
             <div>
                 <select name="lang" id="lang">
@@ -85,26 +85,26 @@
                     <option value="yi">Yiddish</option>
                 </select>
             </div>
-            <button class="submit" id="translate">Translate</button>
+            <button class="wl-button" id="translate">Translate</button>
         </form>
 
-        <div class="main-title">Pseudolocalization</div>
+        <div class="wl-title">Pseudolocalization</div>
         <form>
-            <label class="radio-set"><input type="checkbox" name="allmodes" id="allmodes" value="all" /> All</label>
-            <label class="radio-set"><input type="checkbox" name="mode" value="accenter" /> Accenter</label>
-            <label class="radio-set"><input type="checkbox" name="mode" id="lmodCheck" value="lmod" /> Length Modifier</label>
+            <label class="wl-check-set"><input type="checkbox" name="allmodes" id="allmodes" value="all" /> All</label>
+            <label class="wl-check-set"><input type="checkbox" name="mode" value="accenter" /> Accenter</label>
+            <label class="wl-check-set"><input type="checkbox" name="mode" id="lmodCheck" value="lmod" /> Length Modifier</label>
 
-            <div class="lmod-options">
+            <div class="wl-lmod-options">
                 <div><input type="range" name="lmodpercent" id="lmodpercent" min="-100" max="100" value="0" />
                     <span class="lmodpercent-display" id="lmodpercent-display">0%</span>
                 </div>
             </div>
 
-            <label class="radio-set"><input type="checkbox" name="mode" value="fakebidi" /> Fake Bidirectional</label>
-            <label class="radio-set"><input type="checkbox" name="mode" value="brackets" /> Brackets</label>
+            <label class="wl-check-set"><input type="checkbox" name="mode" value="fakebidi" /> Fake Bidirectional</label>
+            <label class="wl-check-set"><input type="checkbox" name="mode" value="brackets" /> Brackets</label>
 
-            <button class="submit" id="localize">Localize</button>
-            <button class="submit" id="reset">Reset</button>
+            <button class="wl-button" id="localize">Localize</button>
+            <button class="wl-button" id="reset">Reset</button>
         </form>
     </div>
 </body>
