@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
      document.getElementById('localize').addEventListener("click", function(){
           var options = {};
           var mode; 
-          var lmodmodeSelector = document.getElementById('lmodmode');
           var lmodfixSelector = document.getElementById('lmodfix');
           var elements = document.getElementsByName('mode');     
           var paramString = "{";
@@ -37,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
           if(mode == "all" || mode == "lmod"){
                paramString += '"lmod":true';
                paramString += ',"lmodpercent":' + document.getElementById('lmodpercent').value;
-               paramString += ',"lmodmode":"' + lmodmodeSelector.options[lmodmodeSelector.selectedIndex].value + '"';
                paramString += ',"lmodfix":"' + lmodfixSelector.options[lmodfixSelector.selectedIndex].value + '"';
           }
           else{

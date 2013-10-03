@@ -11,8 +11,13 @@ body {
 span.radio-set{
     font-weight: bold;
 }
+label.radio-set{
+    display: block;
+}
 .lmod-options{
     margin-top: 10px;
+    margin-left: 20px;
+    font-size: 13px;
 }
 .lmod-options span{
     font-weight: bold;

@@ -9,7 +9,6 @@
     <div class="main-title">Translate Page</div>
     <form>
         <div>
-            Translate to: 
             <select name="lang" id="lang">
                 <option value="af">Afrikaans</option>
                 <option value="sq">Albanian</option>
@@ -90,24 +89,13 @@
 
     <div class="main-title">Pseudolocalization</div>
     <form>
-        <span class="radio-set">Localization Type</span>
-        <div class="radio-set"><input type="radio" name="mode" value="all" checked="checked" /> All</div>
-        <div class="radio-set"><input type="radio" name="mode" value="accenter" /> Accenter</div>
-        <div class="radio-set"><input type="radio" name="mode" value="lmod" /> Length Modifier</div>
-        <div class="radio-set"><input type="radio" name="mode" value="fakebidi" /> Fake Bidirectional</div>
-        <div class="radio-set"><input type="radio" name="mode" value="brackets" /> Brackets</div>
+        <label class="radio-set"><input type="radio" name="mode" value="all" checked="checked" /> All</label>
+        <label class="radio-set"><input type="radio" name="mode" value="accenter" /> Accenter</label>
+        <label class="radio-set"><input type="radio" name="mode" value="lmod" /> Length Modifier</label>
 
         <div class="lmod-options">
-            <span>Length Modifier Options</span>
-            <div>
-                Mode: 
-                <select name="lmodmode" id="lmodmode">
-                    <option value="expand">Expand</option>
-                    <option value="contract">Contract</option>
-                </select>
-            </div>
-            <div>Percent Modifier: <input type="range" name="lmodpercent" id="lmodpercent" min="1" max="100" value="20" />
-                <span class="lmodpercent-display" id="lmodpercent-display">20%</span>
+            <div>Percent Modifier: <input type="range" name="lmodpercent" id="lmodpercent" min="-100" max="100" value="0" />
+                <span class="lmodpercent-display" id="lmodpercent-display">0%</span>
             </div>
             <div>
                 Fix Position: 
@@ -118,6 +106,9 @@
                 </select>
             </div>
         </div>
+
+        <label class="radio-set"><input type="radio" name="mode" value="fakebidi" /> Fake Bidirectional</label>
+        <label class="radio-set"><input type="radio" name="mode" value="brackets" /> Brackets</label>
 
         <button class="submit" id="localize">Localize</button>
         <button class="submit" id="reset">Reset</button>

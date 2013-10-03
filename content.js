@@ -149,7 +149,7 @@ function getIterator(){
 	return nodeIterator;
 }
 
-function alterTextNodes(nodeIterator, mode, lmodpercent, lmodmode, lmodfix){
+function alterTextNodes(nodeIterator, mode, lmodpercent, lmodfix){
 
 	switch(mode)
 	{
@@ -174,6 +174,8 @@ function alterTextNodes(nodeIterator, mode, lmodpercent, lmodmode, lmodfix){
 		case 'lmod':
                lmodpercent = (lmodpercent.length != 0 && !isNaN(parseFloat(lmodpercent)) && isFinite(lmodpercent) && lmodpercent != '0')?lmodpercent:false;
                if(lmodpercent !== false){
+                    var lmodmode = (lmodpercent < 0)?"contract":"expand";
+                    lmodpercent = Math.abs(lmodpercent);
                     switch(lmodfix)
                     {
                          case "prefix":
@@ -259,7 +261,7 @@ function plocalize(options){
 
      for(var i = 0; i < actionList.length; i++){
           if(actionList[i].trim() === "lmod")
-               alterTextNodes(getIterator(), "lmod", options.lmodpercent, options.lmodmode, options.lmodfix);
+               alterTextNodes(getIterator(), "lmod", options.lmodpercent, options.lmodfix);
           else
                alterTextNodes(getIterator(), actionList[i].trim());
      }
