@@ -68,5 +68,18 @@ document.addEventListener('DOMContentLoaded', function () {
      });
 });
 
+$(document).ready(function(){
+     $('.radio-set input[type="radio"]').change(function(){
+          if($(this).val() == "all" || $(this).val() == "lmod"){
+               if($('.lmod-options').css('display') == 'none')
+                    $('.lmod-options').slideDown();
+          }
+          else{
+               if($('.lmod-options').css('display') != 'none')
+                    $('.lmod-options').slideUp();  
+         }
+     });
+});
+
 
      
