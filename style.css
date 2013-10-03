@@ -1,16 +1,11 @@
 html, body {
     margin: 0;
-    height: 343px;
+    height: 396px;
     font-family: 'Istok Web', sans-serif;
     color: #444;
     background: #fff;
     border: 1px solid #575757;
     border-bottom-width: 4px;
-    -webkit-transition: height 1s;
-    transition: height 1s;
-}
-html.lmodChecked, html.lmodChecked body{
-    height: 396px;
 }
 form{
     margin: 0;
@@ -36,14 +31,7 @@ label.radio-set{
 }
 .lmod-options{
     padding-left: 20px;
-    height: 0;
     font-size: 13px;
-    overflow: hidden;
-    -webkit-transition: height 1s;
-    transition: height 1s;
-}
-.radio-set.checked + .lmod-options{
-    height: 53px;
 }
 .lmod-options span{
     font-weight: bold;
