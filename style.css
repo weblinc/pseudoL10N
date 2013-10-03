@@ -1,7 +1,19 @@
-body {
+html, body {
+    margin: 0;
+    height: 460px;
     font-family: 'Istok Web', sans-serif;
-    color: #494848;
-    background: #f0f0f0;
+    color: #444;
+    background: #fff;
+    border: 1px solid #575757;
+    border-bottom-width: 4px;
+}
+.header{
+    height: 25px;
+    background: linear-gradient(to bottom, #414141, #252525);
+    border-bottom: 4px solid #575757
+}
+.content-wrapper{
+    padding: 8px;
 }
 
 .main-title{
@@ -34,7 +46,7 @@ button.submit{
     font-size: 15px;
     color: #fff;
     text-transform: uppercase;
-    background: #ababab;
-    border: 1px solid #86898B;
+    background: #c76a6a;
+    border: 1px solid #BE6E6E;
     border-radius: 2px;
 }
