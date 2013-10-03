@@ -4,7 +4,19 @@ function getTranslatedWindow(options){
      var full_url = base_url + "&tl=" + options.destLang + "&u=" + requested_page;
      window.open(full_url, "Translated Content", "height=860,width=1200");
 }
-
+function modifyLmodSize(){
+     var ogNode = document.getElementById('lmodCheck');
+     var parentNode = ogNode.parentNode;
+     var htmlNode = document.getElementsByTagName('html')[0];
+     if(!ogNode.checked && parentNode.classList.contains('checked')){
+          parentNode.classList.remove('checked');
+          htmlNode.classList.remove('lmodChecked');
+     }
+     else if(ogNode.checked){
+          parentNode.classList.add('checked');
+          htmlNode.classList.add('lmodChecked');
+     }
+}
 document.addEventListener('DOMContentLoaded', function () {
      var windowUrl;
     chrome.tabs.query({
@@ -27,19 +39,14 @@ document.addEventListener('DOMContentLoaded', function () {
           var paramString = "{";
           for(var i=0; i < elements.length; ++i){
                if(elements[i].checked){
-                    mode = elements[i].value;
-                    break;
+                    if(paramString.length == 1)
+                         paramString += '"' + elements[i].value + '":true';
+                    else
+                         paramString += ',"' + elements[i].value + '":true';
+                    if(elements[i].value == "lmod"){
+                         paramString += ',"lmodpercent":' + document.getElementById('lmodpercent').value;
+                    }
                }
-          }
-          if(mode == "all")
-               paramString += '"all":true,';
-          if(mode == "all" || mode == "lmod"){
-               paramString += '"lmod":true';
-               paramString += ',"lmodpercent":' + document.getElementById('lmodpercent').value;
-               paramString += ',"lmodfix":"' + lmodfixSelector.options[lmodfixSelector.selectedIndex].value + '"';
-          }
-          else{
-               paramString += '"' + mode + '":true';
           }
           paramString += "}";
           
@@ -64,18 +71,32 @@ document.addEventListener('DOMContentLoaded', function () {
           });
           return false;
      });
-});
 
-$(document).ready(function(){
-     $('.radio-set input[type="radio"]').change(function(){
-          if($(this).val() == "all" || $(this).val() == "lmod"){
-               if($('.lmod-options').css('display') == 'none')
-                    $('.lmod-options').slideDown();
+     document.getElementById("allmodes").addEventListener("change", function(){
+          var elements = document.getElementsByName('mode'),
+               lmodchecked = false;
+          if(this.checked){
+               for(var i=0; i < elements.length; ++i){
+                    elements[i].checked = true;
+                    if(elements[i].value == "lmod")
+                         lmodchecked = true;
+               }
           }
           else{
-               if($('.lmod-options').css('display') != 'none')
-                    $('.lmod-options').slideUp();  
-         }
+               for(var i=0; i < elements.length; ++i){
+                    elements[i].checked = false;
+                    if(elements[i].value == "lmod")
+                         lmodchecked = true;
+               }
+          }
+          if(lmodchecked){
+               modifyLmodSize();
+          }
+
+     });
+
+     document.getElementById("lmodCheck").addEventListener("change", function(){
+          modifyLmodSize();
      });
 });
 

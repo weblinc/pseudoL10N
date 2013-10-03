@@ -247,22 +247,19 @@ function alterTextNodes(nodeIterator, mode, lmodpercent, lmodfix){
 
 function plocalize(options){
      var actionList = new Array();
-     if(options.all == true)
-          actionList = ["accenter", "lmod", "fakebidi", "brackets"];
-     else{
-          if(options.accenter == true)
-               actionList.push("accenter");
-          if(options.lmod == true)
-               actionList.push("lmod");
-          if(options.fakebidi == true)
-               actionList.push("fakebidi");
-          if(options.brackets == true)
-               actionList.push("brackets");
-     }
+
+     if(options.accenter == true)
+          actionList.push("accenter");
+     if(options.lmod == true)
+          actionList.push("lmod");
+     if(options.fakebidi == true)
+          actionList.push("fakebidi");
+     if(options.brackets == true)
+          actionList.push("brackets");
 
      for(var i = 0; i < actionList.length; i++){
           if(actionList[i].trim() === "lmod")
-               alterTextNodes(getIterator(), "lmod", options.lmodpercent, options.lmodfix);
+               alterTextNodes(getIterator(), "lmod", options.lmodpercent);
           else
                alterTextNodes(getIterator(), actionList[i].trim());
      }

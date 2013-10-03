@@ -2,7 +2,6 @@
 <head>
     <link href='http://fonts.googleapis.com/css?family=Istok+Web:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
@@ -91,9 +90,9 @@
 
         <div class="main-title">Pseudolocalization</div>
         <form>
-            <label class="radio-set"><input type="radio" name="mode" value="all" checked="checked" /> All</label>
-            <label class="radio-set"><input type="radio" name="mode" value="accenter" /> Accenter</label>
-            <label class="radio-set"><input type="radio" name="mode" value="lmod" /> Length Modifier</label>
+            <label class="radio-set"><input type="checkbox" name="allmodes" id="allmodes" value="all" /> All</label>
+            <label class="radio-set"><input type="checkbox" name="mode" value="accenter" /> Accenter</label>
+            <label class="radio-set"><input type="checkbox" name="mode" id="lmodCheck" value="lmod" /> Length Modifier</label>
 
             <div class="lmod-options">
                 <div>Percent Modifier: <input type="range" name="lmodpercent" id="lmodpercent" min="-100" max="100" value="0" />
@@ -109,8 +108,8 @@
                 </div>
             </div>
 
-            <label class="radio-set"><input type="radio" name="mode" value="fakebidi" /> Fake Bidirectional</label>
-            <label class="radio-set"><input type="radio" name="mode" value="brackets" /> Brackets</label>
+            <label class="radio-set"><input type="checkbox" name="mode" value="fakebidi" /> Fake Bidirectional</label>
+            <label class="radio-set"><input type="checkbox" name="mode" value="brackets" /> Brackets</label>
 
             <button class="submit" id="localize">Localize</button>
             <button class="submit" id="reset">Reset</button>
