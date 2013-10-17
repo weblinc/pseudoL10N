@@ -4,7 +4,6 @@ function getTranslatedWindow(options){
      var full_url = base_url + "&tl=" + options.destLang + "&u=" + requested_page;
      window.open(full_url, "Translated Content", "height=860,width=1200");
 }
-
 document.addEventListener('DOMContentLoaded', function () {
      var windowUrl;
     chrome.tabs.query({
@@ -19,29 +18,23 @@ document.addEventListener('DOMContentLoaded', function () {
           return false; 
      });
 
-     document.getElementById('localize').addEventListener("click", function(){
+     document.getElementById('localize').addEventListener("click", function(e){
+          e.preventDefault();
           var options = {};
           var mode; 
-          var lmodmodeSelector = document.getElementById('lmodmode');
           var lmodfixSelector = document.getElementById('lmodfix');
           var elements = document.getElementsByName('mode');     
           var paramString = "{";
           for(var i=0; i < elements.length; ++i){
                if(elements[i].checked){
-                    mode = elements[i].value;
-                    break;
+                    if(paramString.length == 1)
+                         paramString += '"' + elements[i].value + '":true';
+                    else
+                         paramString += ',"' + elements[i].value + '":true';
+                    if(elements[i].value == "lmod"){
+                         paramString += ',"lmodpercent":' + document.getElementById('lmodpercent').value;
+                    }
                }
-          }
-          if(mode == "all")
-               paramString += '"all":true,';
-          if(mode == "all" || mode == "lmod"){
-               paramString += '"lmod":true';
-               paramString += ',"lmodpercent":' + document.getElementById('lmodpercent').value;
-               paramString += ',"lmodmode":"' + lmodmodeSelector.options[lmodmodeSelector.selectedIndex].value + '"';
-               paramString += ',"lmodfix":"' + lmodfixSelector.options[lmodfixSelector.selectedIndex].value + '"';
-          }
-          else{
-               paramString += '"' + mode + '":true';
           }
           paramString += "}";
           
@@ -50,12 +43,34 @@ document.addEventListener('DOMContentLoaded', function () {
                  code: "plocalize(" + paramString + ");"
                }, function() { console.log('done'); });
           });
-
-          return false;
      });
 
      document.getElementById("lmodpercent").addEventListener("change", function(){
           document.getElementById('lmodpercent-display').innerHTML = document.getElementById('lmodpercent').value + "%";
+     });
+
+     document.getElementById("reset").addEventListener("click", function(e){
+          e.preventDefault();
+          chrome.tabs.getSelected(null, function(tab) {
+            chrome.tabs.executeScript(tab.id, {
+                 code: "resetPageNodes();"
+               }, function() { console.log('done'); });
+          });
+     });
+
+     document.getElementById("allmodes").addEventListener("change", function(){
+          var elements = document.getElementsByName('mode');
+          if(this.checked){
+               for(var i=0; i < elements.length; ++i){
+                    elements[i].checked = true;
+               }
+          }
+          else{
+               for(var i=0; i < elements.length; ++i){
+                    elements[i].checked = false;
+               }
+          }
+
      });
 });
 
