@@ -1,4 +1,6 @@
 "strict mode";
+var originalNodes = new originalNodeValues();
+
 function translateAccent(character){
     var dictionary = [
      ' ', '2003' ,
@@ -100,10 +102,32 @@ function translateAccent(character){
 	}
     return character;
 }
-function getRandomInt(min, max){
-     return Math.floor(Math.random() * (max-min+1) + min);
+
+function originalNodeValues(){
+     this.nodes = setNodes();
+}
+function setNodes(){     
+     if(originalNodes == undefined){
+          var allNodes = [],
+              nodeIterator = getIterator();
+          while(currNode = nodeIterator.nextNode()){
+               allNodes.push(currNode.nodeValue);
+          }
+          return allNodes;
+     }
 }
 
+function resetPageNodes(){
+     var i = 0,
+          nodeIterator = getIterator(),
+          originalValues = originalNodes.nodes;
+
+     while(currNode = nodeIterator.nextNode()){
+          currNode.nodeValue = originalValues[i];
+          i++
+     }
+     document.getElementsByTagName('body')[0].setAttribute('DIR', 'LTR');
+}
 
 function getIterator(){
 	var scope = document.body,
@@ -123,7 +147,7 @@ function getIterator(){
 	return nodeIterator;
 }
 
-function alterTextNodes(nodeIterator, mode, lmodpercent, lmodmode, lmodfix){
+function alterTextNodes(nodeIterator, mode, lmodpercent, lmodfix){
 
 	switch(mode)
 	{
@@ -148,6 +172,8 @@ function alterTextNodes(nodeIterator, mode, lmodpercent, lmodmode, lmodfix){
 		case 'lmod':
                lmodpercent = (lmodpercent.length != 0 && !isNaN(parseFloat(lmodpercent)) && isFinite(lmodpercent) && lmodpercent != '0')?lmodpercent:false;
                if(lmodpercent !== false){
+                    var lmodmode = (lmodpercent < 0)?"contract":"expand";
+                    lmodpercent = Math.abs(lmodpercent);
                     switch(lmodfix)
                     {
                          case "prefix":
@@ -218,22 +244,19 @@ function alterTextNodes(nodeIterator, mode, lmodpercent, lmodmode, lmodfix){
 
 function plocalize(options){
      var actionList = new Array();
-     if(options.all == true)
-          actionList = ["accenter", "lmod", "fakebidi", "brackets"];
-     else{
-          if(options.accenter == true)
-               actionList.push("accenter");
-          if(options.lmod == true)
-               actionList.push("lmod");
-          if(options.fakebidi == true)
-               actionList.push("fakebidi");
-          if(options.brackets == true)
-               actionList.push("brackets");
-     }
+
+     if(options.accenter == true)
+          actionList.push("accenter");
+     if(options.lmod == true)
+          actionList.push("lmod");
+     if(options.fakebidi == true)
+          actionList.push("fakebidi");
+     if(options.brackets == true)
+          actionList.push("brackets");
 
      for(var i = 0; i < actionList.length; i++){
           if(actionList[i].trim() === "lmod")
-               alterTextNodes(getIterator(), "lmod", options.lmodpercent, options.lmodmode, options.lmodfix);
+               alterTextNodes(getIterator(), "lmod", options.lmodpercent);
           else
                alterTextNodes(getIterator(), actionList[i].trim());
      }
