@@ -1,6 +1,6 @@
 html, body {
     margin: 0;
-    height: 396px;
+    height: 440px;
     font-family: 'Istok Web', sans-serif;
     color: #444;
     background: #fff;
@@ -8,6 +8,12 @@ html, body {
     border-bottom-width: 4px;
 }
 form{
+    margin: 0;
+}
+section {
+    padding: 1em;
+}
+h2 {
     margin: 0;
 }
 .header{
